@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import MapKit
 
 class PostInfoViewController: UIViewController {
 
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var ivIcon: UIImageView!
+    @IBOutlet weak var svTextFieldBtn: UIStackView!
+    @IBOutlet weak var finishBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(handleCancel))
+        
+        mapView.isHidden = true
+        finishBtn.isHidden = true
     }
     
     @objc func handleCancel(){
@@ -28,5 +37,13 @@ class PostInfoViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func handleFinishClick(_ sender: Any) {
+    }
+    
+    @IBAction func handleFindLocationClick(_ sender: Any) {
+        svTextFieldBtn.isHidden = true
+        mapView.isHidden = false
+        ivIcon.isHidden = true
+        finishBtn.isHidden = false
+    }
 }
