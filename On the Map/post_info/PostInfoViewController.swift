@@ -1,5 +1,5 @@
 //
-//  MapTabViewController.swift
+//  PostInfoViewController.swift
 //  On the Map
 //
 //  Created by Nitin Anand on 04/07/20.
@@ -8,15 +8,16 @@
 
 import UIKit
 
-class MapTabViewController: UITabBarController {
+class PostInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(handleCancel))
     }
     
+    @objc func handleCancel(){
+        
+    }
 
     /*
     // MARK: - Navigation

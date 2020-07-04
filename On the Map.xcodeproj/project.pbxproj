@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7817968D24B0E48A00051486 /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817968C24B0E48A00051486 /* PostInfoViewController.swift */; };
 		7817CFA524B08C51003F1541 /* MapTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817CFA424B08C51003F1541 /* MapTabViewController.swift */; };
 		7817CFA724B0907A003F1541 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817CFA624B09079003F1541 /* MapViewController.swift */; };
 		7817CFA924B090D2003F1541 /* LocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7817CFA824B090D2003F1541 /* LocationTableViewController.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7817968C24B0E48A00051486 /* PostInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfoViewController.swift; sourceTree = "<group>"; };
 		7817CFA424B08C51003F1541 /* MapTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapTabViewController.swift; sourceTree = "<group>"; };
 		7817CFA624B09079003F1541 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		7817CFA824B090D2003F1541 /* LocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewController.swift; sourceTree = "<group>"; };
@@ -53,6 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7817968B24B0E44A00051486 /* post_info */ = {
+			isa = PBXGroup;
+			children = (
+				7817968C24B0E48A00051486 /* PostInfoViewController.swift */,
+			);
+			path = post_info;
+			sourceTree = "<group>";
+		};
 		7817CFA324B08C0E003F1541 /* map_tab_view */ = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +105,7 @@
 			children = (
 				78951D6D24AFDFC800CCCC0A /* utils */,
 				78951D6A24AFC78300CCCC0A /* data */,
+				7817968B24B0E44A00051486 /* post_info */,
 				7817CFA324B08C0E003F1541 /* map_tab_view */,
 				78951D6924AF6D9E00CCCC0A /* login */,
 				78951D5724AF642600CCCC0A /* AppDelegate.swift */,
@@ -202,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7817968D24B0E48A00051486 /* PostInfoViewController.swift in Sources */,
 				78951D5A24AF642600CCCC0A /* LoginViewController.swift in Sources */,
 				7817CFA524B08C51003F1541 /* MapTabViewController.swift in Sources */,
 				7822A46324B06F6400AAC207 /* SessionResponse.swift in Sources */,
