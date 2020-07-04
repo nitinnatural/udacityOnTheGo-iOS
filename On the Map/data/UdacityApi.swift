@@ -21,36 +21,47 @@ class UdacityApi {
     
     
     
-    class func getUsers() {
+    class func getUsers(completionHandler: @escaping (UserResponse?, Error?)->Void) {
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt")!)
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error...
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                completionHandler(nil, error)
                 return
             }
-            print(String(data: data!, encoding: .utf8)!)
-        }
-        task.resume()
+            let decoder = JSONDecoder()
+            let results = try! decoder.decode(UserResponse.self, from: data)
+            completionHandler(results, nil)
+        }.resume()
     }
     
-    class func getSession(){
+    class func getSession(_ username:String, _ password:String, completionHandler: @escaping (String?, Error?)->Void){
+        let params = ["username":username, "password":password] as Dictionary<String, String>
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
         // encoding a JSON body from a string, can also use a Codable struct
         request.httpBody = "{\"udacity\": {\"username\": \"nitinnatural@gmail.com\", \"password\": \"Xn1t1n_07U\"}}".data(using: .utf8)
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error…
-                print(error?.localizedDescription)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let data = data else {
+                print("data is empty")
+                completionHandler(nil, error)
                 return
             }
-            let range = Range(5..<data!.count)
-            let newData = data?.subdata(in: range) /* subset response data! */
-            print(String(data: newData!, encoding: .utf8)!)
-        }
-        task.resume()
+            
+//            guard let httpResponse = response as? HTTPURLResponse,
+//                (200...299).contains(httpResponse.statusCode) else {
+//                    completionHandler(nil, error)
+//                    return
+//            }
+            
+        
+            let range = Range(5..<data.count)
+            let newData = data.subdata(in: range) /* subset response data! */
+            let responseString = String(data: newData, encoding: .utf8)
+            print(responseString)
+            completionHandler("success", nil)
+        }.resume()
     }
     
 //    class func requestRandomImage(completionHandler: @escaping (DogImage?, Error?)->Void) {

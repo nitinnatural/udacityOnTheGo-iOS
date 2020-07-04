@@ -90,22 +90,23 @@
                         <outlet property="emailTextField" destination="e8U-fh-HCI" id="4PW-Th-s3G"/>
                         <outlet property="loginButton" destination="Dla-DT-D6h" id="Pg0-A1-krc"/>
                         <outlet property="passwordTextField" destination="RcU-BM-hmq" id="pN3-Lc-PqW"/>
+                        <segue destination="OX3-T9-lLt" kind="show" identifier="nav_login_maptabview" id="S85-ll-Tki"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1036" y="26.53673163418291"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="ET7-op-UCw">
             <objects>
-                <viewController id="14S-lv-eCU" sceneMemberID="viewController">
+                <viewController id="14S-lv-eCU" customClass="MapViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tUj-J4-2BA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tLR-G2-QBO">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="2706" y="-304"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Map Tab View Controller-->
         <scene sceneID="FvX-9i-804">
             <objects>
-                <tabBarController id="OX3-T9-lLt" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="nav_login_maptabview" id="OX3-T9-lLt" customClass="MapTabViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Q0B-0i-AZp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -141,16 +142,16 @@
             </objects>
             <point key="canvasLocation" x="1753" y="29"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Location Table View Controller-->
         <scene sceneID="3Yr-0g-FNr">
             <objects>
-                <tableViewController id="0JU-v1-un7" sceneMemberID="viewController">
+                <tableViewController id="0JU-v1-un7" customClass="LocationTableViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="JIb-pf-yQq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DFN-gt-bd5">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DFN-gt-bd5" customClass="LocationTableViewCell" customModule="On_the_Map" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DFN-gt-bd5" id="ZUP-df-nZX">

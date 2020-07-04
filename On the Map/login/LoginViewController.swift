@@ -15,14 +15,27 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
+    var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        UdacityApi.getSession()
+    }
+    
+    
+    func showProgress() {
+        // todo need to correct here
+        activityIndicator.center = self.view.center
+        activityIndicator.color = UIColor.darkGray
+        self.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
+    func hideActivity(){
+        activityIndicator.stopAnimating()
     }
     
     func openUrl(url:String){
@@ -44,7 +57,8 @@ class LoginViewController: UIViewController {
         
         if isValidEmail(emailTextField.text!)  {
             if Reachability.isConnectedToNetwork() {
-                UdacityApi.getSession()
+                showProgress()
+                UdacityApi.getSession(emailTextField.text!, passwordTextField.text!, completionHandler: requestSession(data:error:) )
             } else {
                 showToast("No internet")
             }
@@ -80,5 +94,41 @@ class LoginViewController: UIViewController {
             toastLabel.removeFromSuperview()
         })
     }
+    
+    func requestSession(data:String?, error:Error?) -> Void{
+        DispatchQueue.main.async {
+            self.showToast(data ?? "error")
+            self.hideActivity()
+            self.dismiss(animated: true, completion: nil) // todo: dismiss not working here.
+            self.navigateToMapTabView()
+            
+        }
+    }
+    
+    func navigateToMapTabView(){
+        performSegue(withIdentifier: "nav_login_maptabview", sender: self)
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "nav_login_maptabview") as! MapTabViewController
+//        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showAlert(message:String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
 }
 
