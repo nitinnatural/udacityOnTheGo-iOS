@@ -21,17 +21,16 @@ class UdacityApi {
     
     
     
-    class func postUserLocation(completionHandler: @escaping(String?, Error?)->Void){
+    class func postUserLocation(userLocationRequest:PostUserLocationRequest, completionHandler: @escaping(String?, Error?)->Void){
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
+        request.httpBody = try! JSONEncoder().encode(userLocationRequest)
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 completionHandler(nil, error)
                 return
             }
-            
             completionHandler("suceess", nil)
             print(String(data: data, encoding: .utf8)!)
         }.resume()
@@ -39,15 +38,19 @@ class UdacityApi {
     
     
     class func getUsers(completionHandler: @escaping (UserResponse?, Error?)->Void) {
-        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt")!)
+        let request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt")!)
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 completionHandler(nil, error)
                 return
             }
-            let decoder = JSONDecoder()
-            let results = try! decoder.decode(UserResponse.self, from: data)
-            completionHandler(results, nil)
+            do {
+                let decoder = JSONDecoder()
+                let results = try! decoder.decode(UserResponse.self, from: data)
+                completionHandler(results, nil)
+            } catch {
+                completionHandler(nil, error)
+            }
         }.resume()
     }
     

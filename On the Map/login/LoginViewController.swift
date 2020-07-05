@@ -101,7 +101,7 @@ class LoginViewController: UIViewController {
             if let error = error {
                 self.showAlert(message: error)
             } else {
-                // save the data
+                (UIApplication.shared.delegate as! AppDelegate).userKey = data
                 self.dismiss(animated: true, completion: nil)
                 self.navigateToMapTabView()
             }

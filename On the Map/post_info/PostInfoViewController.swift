@@ -19,7 +19,8 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var linkField: UITextField!
     @IBOutlet weak var locationField: UITextField!
     
-     var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    var postLocationRequest:PostUserLocationRequest!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,7 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
     
     
     @objc func handleCancel(){
-        switchToMapView(false)
+        dismiss(animated: true, completion: nil)
     }
     
     func showProgress() {
@@ -67,6 +68,25 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
     func hideActivity(){
         activityIndicator.stopAnimating()
     }
+    
+    func showAlert(message:String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 
     func forwardGeoCoder(address:String, link:String){
         showProgress()
@@ -80,7 +100,7 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
                 let location = placemarks.first?.location
                 else {
                     // handle no location found
-                    self.showToast("no location found")
+                    self.showAlert(message: "no location found")
                     return
                 }
             
@@ -94,11 +114,28 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
             // The lat and long are used to create a CLLocationCoordinates2D instance.
             let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
             
+            
+            let firstName = "Dr. Sheldon"
+            let lastName = "Cooper"
             // Here we create the annotation and set its coordiate, title, and subtitle properties
             let annotation = MKPointAnnotation()
             annotation.coordinate = coordinate
-//            annotation.title = "\(first) \(last)"
+            annotation.title = "\(firstName) \(lastName)"
             annotation.subtitle = link
+            
+            // make request
+            let key:String = (UIApplication.shared.delegate as! AppDelegate).userKey
+            self.postLocationRequest = PostUserLocationRequest(uniqueKey: key,
+                                    firstName: firstName,
+                                    lastName: lastName,
+                                    mapString: address,
+                                    mediaURL: link,
+                                    latitude: lat,
+                                    longitude: long
+                                    
+            )
+            
+            
             self.mapView.addAnnotation(annotation)
             let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
             let region = MKCoordinateRegion(center: annotation.coordinate, span: span)
@@ -109,7 +146,7 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
  
     @IBAction func handleFinishClick(_ sender: Any) {
         showProgress()
-        UdacityApi.postUserLocation(completionHandler: pushUserLocation(data:error:))
+        UdacityApi.postUserLocation(userLocationRequest: postLocationRequest, completionHandler: pushUserLocation(data:error:))
     }
     
     
@@ -119,18 +156,14 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
             if error == nil {
                 print("posted")
                 self.dismiss(animated: true, completion: nil)
+            } else {
+                self.showAlert(message: "Something went wrong. Please try again!")
             }
         }
         
     }
     
     @IBAction func handleFindLocationClick(_ sender: Any) {
-        // validate the field
-        // check for internet
-        // decode the coordinates if error - display.
-        // switch the view
-        // display the coordinates
-        
         let location = locationField.text ?? ""
         let mediaUrl = linkField.text ?? ""
         
@@ -149,8 +182,6 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
         } else {
             showToast("no network")
         }
-        
-        switchToMapView(true)
     
     }
     

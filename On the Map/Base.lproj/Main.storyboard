@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OX3-T9-lLt">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -121,6 +121,7 @@
                     <navigationItem key="navigationItem" id="EsU-eD-doE"/>
                     <connections>
                         <outlet property="mapView" destination="tLR-G2-QBO" id="Zj3-Ys-Ya4"/>
+                        <segue destination="mgm-E0-HZQ" kind="show" identifier="NavToPostInfoFromMapView" id="qFz-Hw-VTK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Srt-cu-u4N" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -209,6 +210,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="5MM-6O-65V"/>
+                    <connections>
+                        <segue destination="mgm-E0-HZQ" kind="show" id="9Bu-Je-rJn"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4dS-x6-jev" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -226,7 +230,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2n-Y2-F26">
-                                <rect key="frame" x="40" y="617" width="295" height="30"/>
+                                <rect key="frame" x="40" y="568" width="295" height="30"/>
                                 <color key="backgroundColor" red="0.10200945610000001" green="0.83577931000000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="FINISH">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -317,7 +321,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oe5-KU-ucf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4399" y="60"/>
+            <point key="canvasLocation" x="4423" y="60"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5WP-4O-unj">
@@ -365,4 +369,7 @@
         <image name="icon_world" width="52" height="67"/>
         <image name="logo-u" width="62" height="62"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qFz-Hw-VTK"/>
+    </inferredMetricsTieBreakers>
 </document>

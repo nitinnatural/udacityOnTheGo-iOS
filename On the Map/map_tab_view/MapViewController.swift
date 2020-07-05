@@ -13,12 +13,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 
     
     @IBOutlet weak var mapView:MKMapView!
+    var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
     var locations = [UdacityUser]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UdacityApi.getUsers(completionHandler: fetchUsers(response:error:))
         mapView.delegate = self
         navigationItem.title = "On the Map"
         let refreshButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.refresh,
@@ -28,18 +28,54 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         target: self, action: #selector(handleAddClick))
         
         navigationItem.setRightBarButtonItems([refreshButton, addLocationButton], animated: true)
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        UdacityApi.getUsers(completionHandler: fetchUsers(response:error:))
+    }
+    
+    func showProgress() {
+        // todo need to correct here
+        activityIndicator.center = self.view.center
+        activityIndicator.color = UIColor.darkGray
+        self.view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
+    func hideActivity(){
+        activityIndicator.stopAnimating()
+    }
+    
+    func showAlert(message:String) {
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
     
     @objc func handleAddClick(){
-        let storyboard = UIStoryboard (name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "PostInfoViewController")as! PostInfoViewController
-        present(vc, animated: true, completion: nil)
+        performSegue(withIdentifier: "NavToPostInfoFromMapView", sender: self)
+//        let storyboard = UIStoryboard (name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "PostInfoViewController")as! PostInfoViewController
+//        present(vc, animated: true, completion: nil)
     }
     
     @objc func handleRefreshClick(){
+        showProgress()
         UdacityApi.getUsers(completionHandler: fetchUsers(response:error:))
     }
     
@@ -71,7 +107,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
             if let toOpen = view.annotation?.subtitle! {
-                app.openURL(URL(string: toOpen)!)
+                do {
+                    app.openURL(URL(string: toOpen)!)
+                } catch {
+                    showAlert(message: error.localizedDescription)
+                }
             }
         }
     }
@@ -87,7 +127,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func fetchUsers(response:UserResponse?, error:Error?) {
         DispatchQueue.main.async {
-            print("from fetch user")
+            self.hideActivity()
+            if let error = error {
+                self.showAlert(message: error.localizedDescription)
+                return
+            }
+            
             if response != nil {
                 (UIApplication.shared.delegate as! AppDelegate).locations = (response?.results)!
                 self.locations = (response?.results)!
