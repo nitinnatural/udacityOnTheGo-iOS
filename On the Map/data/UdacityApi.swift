@@ -51,7 +51,7 @@ class UdacityApi {
         }.resume()
     }
     
-    class func getSession(_ username:String, _ password:String, completionHandler: @escaping (String?, Error?)->Void){
+    class func getSession(_ username:String, _ password:String, completionHandler: @escaping (String?, String?)->Void){
         let post = UdacityUserRequest(udacity:UserSession(username:username, password:password))
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
         request.httpMethod = "POST"
@@ -60,23 +60,32 @@ class UdacityApi {
         request.httpBody = try! JSONEncoder().encode(post)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
-                print("data is empty")
-                completionHandler(nil, error)
+                completionHandler(nil, "something went wrong")
                 return
             }
             
-//            guard let httpResponse = response as? HTTPURLResponse,
-//                (200...299).contains(httpResponse.statusCode) else {
-//                    completionHandler(nil, error)
-//                    return
-//            }
-            
-        
             let range = Range(5..<data.count)
             let newData = data.subdata(in: range) /* subset response data! */
-            let responseString = String(data: newData, encoding: .utf8)
-            print(responseString)
-            completionHandler("success", nil)
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: newData, options: []) as! [String:Any]
+                print(json)
+                
+                if let account = json["account"] {
+                    let key = (account as! [String:Any])["key"] as! String
+                    completionHandler(key, nil)
+                    return
+                }
+                
+                if let error = json["error"] {
+                    completionHandler(nil, error as! String)
+                }
+                
+                
+            } catch {
+                completionHandler(nil, error.localizedDescription)
+            }
+            
         }.resume()
     }
     

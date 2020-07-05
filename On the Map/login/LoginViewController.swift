@@ -95,13 +95,16 @@ class LoginViewController: UIViewController {
         })
     }
     
-    func requestSession(data:String?, error:Error?) -> Void{
+    func requestSession(data:String?, error:String?) -> Void{
         DispatchQueue.main.async {
-            self.showToast(data ?? "error")
             self.hideActivity()
-            self.dismiss(animated: true, completion: nil) // todo: dismiss not working here.
-            self.navigateToMapTabView()
-            
+            if let error = error {
+                self.showAlert(message: error)
+            } else {
+                // save the data
+                self.dismiss(animated: true, completion: nil)
+                self.navigateToMapTabView()
+            }
         }
     }
     
