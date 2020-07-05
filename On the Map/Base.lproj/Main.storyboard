@@ -227,7 +227,7 @@
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2n-Y2-F26">
                                 <rect key="frame" x="40" y="617" width="295" height="30"/>
-                                <color key="backgroundColor" red="0.45953684919999999" green="0.75932609740000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.10200945610000001" green="0.83577931000000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="FINISH">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -252,7 +252,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4sw-Ei-V2P">
                                         <rect key="frame" x="0.0" y="76" width="295" height="30"/>
-                                        <color key="backgroundColor" red="0.10200945610000001" green="0.83577931000000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.2602744996547699" green="0.83646088838577271" blue="0.9981275200843811" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="FIND LOCATION">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -291,6 +291,8 @@
                     <connections>
                         <outlet property="finishBtn" destination="H2n-Y2-F26" id="C8q-0R-T16"/>
                         <outlet property="ivIcon" destination="OK6-Hz-sVO" id="VcM-Sb-KIG"/>
+                        <outlet property="linkField" destination="IFi-Nt-zhO" id="0Lu-sI-ZV2"/>
+                        <outlet property="locationField" destination="9mW-N1-gye" id="3fm-Dl-4bI"/>
                         <outlet property="mapView" destination="OJw-xG-hn2" id="Uj5-HH-TzR"/>
                         <outlet property="svTextFieldBtn" destination="qz5-qt-Ctc" id="fIa-En-m9z"/>
                     </connections>
@@ -302,7 +304,7 @@
         <!--Navigation Controller-->
         <scene sceneID="kjj-cd-Wkk">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mgm-E0-HZQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="PostInfoNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="mgm-E0-HZQ" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="0el-0R-sP1">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

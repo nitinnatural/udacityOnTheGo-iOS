@@ -21,6 +21,23 @@ class UdacityApi {
     
     
     
+    class func postUserLocation(completionHandler: @escaping(String?, Error?)->Void){
+        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                completionHandler(nil, error)
+                return
+            }
+            
+            completionHandler("suceess", nil)
+            print(String(data: data, encoding: .utf8)!)
+        }.resume()
+    }
+    
+    
     class func getUsers(completionHandler: @escaping (UserResponse?, Error?)->Void) {
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt")!)
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -35,13 +52,12 @@ class UdacityApi {
     }
     
     class func getSession(_ username:String, _ password:String, completionHandler: @escaping (String?, Error?)->Void){
-        let params = ["username":username, "password":password] as Dictionary<String, String>
+        let post = UdacityUserRequest(udacity:UserSession(username:username, password:password))
         var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json; charset=UTF-8", forHTTPHeaderField: "Content-Type")
-        // encoding a JSON body from a string, can also use a Codable struct
-        request.httpBody = "{\"udacity\": {\"username\": \"nitinnatural@gmail.com\", \"password\": \"Xn1t1n_07U\"}}".data(using: .utf8)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = try! JSONEncoder().encode(post)
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
                 print("data is empty")
@@ -63,20 +79,6 @@ class UdacityApi {
             completionHandler("success", nil)
         }.resume()
     }
-    
-//    class func requestRandomImage(completionHandler: @escaping (DogImage?, Error?)->Void) {
-//        URLSession.shared.dataTask(with: Endpoints.randomImageFromCollection.url) { (data, response, error) in
-//            guard let data = data else {
-//                print("data is empty")
-//                completionHandler(nil, error)
-//                return
-//            }
-//            print(data)
-//            let decoder = JSONDecoder()
-//            let imageData = try! decoder.decode(DogImage.self, from: data)
-//            completionHandler(imageData, nil)
-//            }.resume()
-//    }
     
     
     
