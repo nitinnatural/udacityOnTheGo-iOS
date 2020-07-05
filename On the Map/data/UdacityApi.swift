@@ -9,11 +9,9 @@
 import Foundation
 class UdacityApi {
     enum Endpoints : String {
-        case randomImageFromCollection = "https://dog.ceo/api/breeds/image/random"
-        
         case getUsers = "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt"
-        
-        
+        case postLocation = "https://onthemap-api.udacity.com/v1/StudentLocation"
+        case getSession = "https://onthemap-api.udacity.com/v1/session"
         var url:URL {
             return URL(string: self.rawValue)!
         }
@@ -22,7 +20,7 @@ class UdacityApi {
     
     
     class func postUserLocation(userLocationRequest:PostUserLocationRequest, completionHandler: @escaping(String?, Error?)->Void){
-        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation")!)
+        var request = URLRequest(url: Endpoints.postLocation.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try! JSONEncoder().encode(userLocationRequest)
@@ -38,7 +36,7 @@ class UdacityApi {
     
     
     class func getUsers(completionHandler: @escaping (UserResponse?, Error?)->Void) {
-        let request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt")!)
+        let request = URLRequest(url: Endpoints.getUsers.url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 completionHandler(nil, error)
@@ -56,7 +54,7 @@ class UdacityApi {
     
     class func getSession(_ username:String, _ password:String, completionHandler: @escaping (String?, String?)->Void){
         let post = UdacityUserRequest(udacity:UserSession(username:username, password:password))
-        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
+        var request = URLRequest(url: Endpoints.getSession.url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

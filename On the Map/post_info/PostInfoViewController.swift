@@ -58,7 +58,6 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
     }
     
     func showProgress() {
-        // todo need to correct here
         activityIndicator.center = self.view.center
         activityIndicator.color = UIColor.darkGray
         self.view.addSubview(activityIndicator)

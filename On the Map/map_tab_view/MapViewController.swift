@@ -15,7 +15,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView:MKMapView!
     var activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
-    var locations = [UdacityUser]()
+    var locations = [StudentInformation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func showProgress() {
-        // todo need to correct here
         activityIndicator.center = self.view.center
         activityIndicator.color = UIColor.darkGray
         self.view.addSubview(activityIndicator)
@@ -69,9 +68,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @objc func handleAddClick(){
         performSegue(withIdentifier: "NavToPostInfoFromMapView", sender: self)
-//        let storyboard = UIStoryboard (name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "PostInfoViewController")as! PostInfoViewController
-//        present(vc, animated: true, completion: nil)
     }
     
     @objc func handleRefreshClick(){
@@ -142,7 +138,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
-    func makeMapPointAnnotations(locations:[UdacityUser]) -> [MKPointAnnotation] {
+    func makeMapPointAnnotations(locations:[StudentInformation]) -> [MKPointAnnotation] {
         var annotations = [MKPointAnnotation]()
         for location in locations {
             

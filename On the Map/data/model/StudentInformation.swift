@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct UdacityUser:Codable {
+struct StudentInformation:Codable {
     let firstName:String
     let lastName:String
     let longitude:Double

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OX3-T9-lLt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -211,7 +211,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="5MM-6O-65V"/>
                     <connections>
-                        <segue destination="mgm-E0-HZQ" kind="show" id="9Bu-Je-rJn"/>
+                        <segue destination="mgm-E0-HZQ" kind="show" identifier="NavToPostInfoFromTableView" id="9Bu-Je-rJn"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4dS-x6-jev" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -370,6 +370,6 @@
         <image name="logo-u" width="62" height="62"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qFz-Hw-VTK"/>
+        <segue reference="9Bu-Je-rJn"/>
     </inferredMetricsTieBreakers>
 </document>

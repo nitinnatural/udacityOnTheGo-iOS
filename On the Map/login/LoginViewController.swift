@@ -27,7 +27,6 @@ class LoginViewController: UIViewController {
     
     
     func showProgress() {
-        // todo need to correct here
         activityIndicator.center = self.view.center
         activityIndicator.color = UIColor.darkGray
         self.view.addSubview(activityIndicator)
@@ -110,8 +109,6 @@ class LoginViewController: UIViewController {
     
     func navigateToMapTabView(){
         performSegue(withIdentifier: "nav_login_maptabview", sender: self)
-//        let vc = storyboard?.instantiateViewController(withIdentifier: "nav_login_maptabview") as! MapTabViewController
-//        navigationController?.pushViewController(vc, animated: true)
     }
     
     func showAlert(message:String) {

@@ -8,5 +8,5 @@
 
 import Foundation
 struct UserResponse:Codable {
-    let results:[UdacityUser]
+    let results:[StudentInformation]
 }
