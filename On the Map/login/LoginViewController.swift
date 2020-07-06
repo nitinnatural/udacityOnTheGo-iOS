@@ -111,6 +111,10 @@ class LoginViewController: UIViewController {
         performSegue(withIdentifier: "nav_login_maptabview", sender: self)
     }
     
+    
+}
+
+extension UIViewController {
     func showAlert(message:String) {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
@@ -128,7 +132,6 @@ class LoginViewController: UIViewController {
             }}))
         self.present(alert, animated: true, completion: nil)
     }
-    
     
 }
 

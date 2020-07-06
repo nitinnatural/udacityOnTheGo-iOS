@@ -8,12 +8,24 @@
 
 import Foundation
 class UdacityApi {
-    enum Endpoints : String {
-        case getUsers = "https://onthemap-api.udacity.com/v1/StudentLocation?order=-updatedAt"
-        case postLocation = "https://onthemap-api.udacity.com/v1/StudentLocation"
-        case getSession = "https://onthemap-api.udacity.com/v1/session"
+    enum Endpoints : Any {
+        case getUsers(Int)
+        case postLocation
+        case getSession
         var url:URL {
-            return URL(string: self.rawValue)!
+            return URL(string: self.stringValue)!
+        }
+        var stringValue: String {
+            switch self {
+            case .getUsers(let limit):
+                return "https://onthemap-api.udacity.com/v1/StudentLocation?limit=\(limit)&order=-updatedAt"
+            case .postLocation:
+                return "https://onthemap-api.udacity.com/v1/StudentLocation"
+            case .getSession:
+                return "https://onthemap-api.udacity.com/v1/session"
+            default:
+                print("")
+            }
         }
     }
     
@@ -36,7 +48,7 @@ class UdacityApi {
     
     
     class func getUsers(completionHandler: @escaping (UserResponse?, Error?)->Void) {
-        let request = URLRequest(url: Endpoints.getUsers.url)
+        let request = URLRequest(url: Endpoints.getUsers(100).url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data else {
                 completionHandler(nil, error)

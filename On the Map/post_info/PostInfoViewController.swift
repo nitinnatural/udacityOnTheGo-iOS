@@ -68,24 +68,6 @@ class PostInfoViewController: UIViewController, MKMapViewDelegate {
         activityIndicator.stopAnimating()
     }
     
-    func showAlert(message:String) {
-        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            switch action.style{
-            case .default:
-                print("default")
-                
-            case .cancel:
-                print("cancel")
-                
-            case .destructive:
-                print("destructive")
-                
-                
-            }}))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
 
     func forwardGeoCoder(address:String, link:String){
         showProgress()
